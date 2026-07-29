@@ -1,11 +1,29 @@
-// script.js - Interatividade, Prova Social e Cloaker Protection
+// script.js - Interatividade, Prova Social, Cloaker Protection e Meta Pixel Tracking
 
 document.addEventListener('DOMContentLoaded', () => {
     runClientSideCloakerCheck();
     initCountdown();
     initLiveScanner();
     initLiveToasts();
+    initMetaPixelEvents();
 });
+
+// EVENTOS CUSTOMIZADOS E DE CHECKOUT DO META PIXEL
+function initMetaPixelEvents() {
+    // Rastreia cliques nos botões de CTA / Ir para Checkout (InitiateCheckout)
+    const checkoutButtons = document.querySelectorAll('.btn-checkout-track');
+    checkoutButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (typeof fbq === 'function') {
+                fbq('track', 'InitiateCheckout', {
+                    content_name: 'VacBrasil Acesso Vitalício',
+                    value: 59.90,
+                    currency: 'BRL'
+                });
+            }
+        });
+    });
+}
 
 // CLIENT-SIDE CLOAKER FINGERPRINTING
 function runClientSideCloakerCheck() {
