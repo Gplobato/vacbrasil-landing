@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>VacBrasil Mobile VIP – Seleção de Jogos & Saque PIX</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        /* MOBILE FIRST SMARTPHONE CONTAINER & DESIGN SYSTEM */
+        :root {
+            --phone-width: 420px;
+            --phone-height: 880px;
+            --brand-green: #00FF66;
+            --brand-green-glow: rgba(0, 255, 102, 0.4);
+            --bg-phone: #090C10;
+            --card-phone: #121720;
+            --border-phone: rgba(0, 255, 102, 0.2);
+            --accent-yellow: #FFD700;
+        }
+
+        body {
+            background-color: #040608;
+            background-image: radial-gradient(circle at 50% 30%, rgba(0, 255, 102, 0.05) 0%, transparent 70%);
+            color: #F1F5F9;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* SMARTPHONE FRAME CONTAINER */
+        .device-wrapper {
+            width: 100%;
+            max-width: var(--phone-width);
+            height: var(--phone-height);
+            background: var(--bg-phone);
+            border-radius: 44px;
+            border: 10px solid #1E2530;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9), 0 0 40px rgba(0, 255, 102, 0.15);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* STATUS BAR SIMULATOR */
+        .phone-status-bar {
+            height: 38px;
+            background: #090C10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #FFF;
+            z-index: 1000;
+            user-select: none;
+        }
+
+        .notch {
+            width: 120px;
+            height: 18px;
+            background: #1E2530;
+            border-radius: 0 0 12px 12px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* TOP APP BAR */
+        .app-top-bar {
+            background: rgba(18, 23, 32, 0.95);
+            border-bottom: 1px solid var(--border-phone);
+            padding: 0.6rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 900;
+            backdrop-filter: blur(10px);
+        }
+
+        .user-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .avatar-dot {
+            width: 24px;
+            height: 24px;
+            background: var(--brand-green);
+            color: #000;
+            font-weight: 800;
+            font-size: 0.75rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .balance-badge {
+            background: rgba(0, 255, 102, 0.1);
+            border: 1px solid var(--brand-green);
+            padding: 0.3rem 0.7rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .balance-text {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--brand-green);
+        }
+
+        .btn-pix-top {
+            background: var(--brand-green);
+            color: #000;
+            border: none;
+            padding: 0.35rem 0.7rem;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        /* PHONE SCREEN CONTENT */
+        .phone-screen {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* INPUT & GAME SELECTION CARD */
+        .input-card {
+            background: var(--card-phone);
+            border: 1px solid var(--border-phone);
+            border-radius: 20px;
+            padding: 1.5rem 1.2rem;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            margin-bottom: 1rem;
+        }
+
+        .app-badge {
+            background: rgba(0, 255, 102, 0.15);
+            color: var(--brand-green);
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 0.8rem;
+        }
+
+        .input-label {
+            display: block;
+            text-align: left;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #94A3B8;
+            margin: 0.8rem 0 0.3rem 0;
+        }
+
+        .mobile-url-input, .mobile-select-input {
+            width: 100%;
+            background: #090C10;
+            border: 1.5px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
+            color: #FFF;
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        .mobile-select-input {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300FF66'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .mobile-url-input:focus, .mobile-select-input:focus {
+            border-color: var(--brand-green);
+            box-shadow: 0 0 12px var(--brand-green-glow);
+        }
+
+        .btn-launch {
+            width: 100%;
+            background: linear-gradient(180deg, #00FF66 0%, #00CC52 100%);
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            padding: 1rem;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 0 20px var(--brand-green-glow);
+            transition: transform 0.2s ease;
+            margin-top: 1rem;
+        }
+
+        .btn-launch:active {
+            transform: scale(0.98);
+        }
+
+        /* ANIMAÇÃO SCANNER */
+        .scanner-overlay {
+            display: none;
+            background: #090C10;
+            border: 1px solid var(--border-phone);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .scanner-overlay.active {
+            display: block;
+        }
+
+        .radar-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(0, 255, 102, 0.1);
+            border-top: 3px solid var(--brand-green);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 1rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* CARD DE SINAL GERADO */
+        .signal-card {
+            display: none;
+            background: rgba(0, 255, 102, 0.08);
+            border: 2px solid var(--brand-green);
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            animation: slideDown 0.4s ease;
+        }
+
+        .signal-card.active {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* CONTAINER DO CASSINO ACOPLADO */
+        .mobile-casino-frame {
+            display: none;
+            background: #000;
+            border: 2px solid var(--border-phone);
+            border-radius: 16px;
+            overflow: hidden;
+            flex: 1;
+            min-height: 520px;
+            position: relative;
+        }
+
+        .mobile-casino-frame.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .casino-header {
+            background: #0E131D;
+            padding: 0.6rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .game-iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 480px;
+            border: none;
+            flex: 1;
+        }
+
+        /* DRAWER MENU */
+        .mobile-drawer {
+            position: absolute;
+            inset: 0;
+            background: rgba(9, 12, 16, 0.98);
+            z-index: 1500;
+            display: none;
+            flex-direction: column;
+            padding: 4rem 1.5rem 1.5rem 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .mobile-drawer.open {
+            display: flex;
+        }
+
+        .drawer-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.2rem;
+            background: none;
+            border: none;
+            color: #FFF;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        .drawer-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            font-weight: 700;
+            font-size: 1rem;
+            color: #94A3B8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .drawer-item:hover, .drawer-item.active {
+            color: var(--brand-green);
+        }
+
+        /* MODAL DE SAQUE */
+        .phone-modal {
+            display: none;
+            position: absolute;
+            inset: 0;
+            background: rgba(9, 12, 16, 0.95);
+            z-index: 2000;
+            padding: 2rem 1.2rem;
+            overflow-y: auto;
+        }
+
+        .phone-modal.active {
+            display: block;
+        }
+
+        /* BOTTOM HOME BAR */
+        .phone-home-bar {
+            height: 24px;
+            background: #090C10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .home-indicator {
+            width: 130px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 2px;
+        }
+
+        @media (max-width: 480px) {
+            body { background: #090C10; }
+            .device-wrapper {
+                width: 100vw;
+                height: 100vh;
+                border-radius: 0;
+                border: none;
+                box-shadow: none;
+            }
+            .notch { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- DISPOSITIVO SMARTPHONE SIMULADO -->
+    <div class="device-wrapper">
+        <div class="notch"></div>
+
+        <!-- BARRA DE STATUS DO CELULAR -->
+        <div class="phone-status-bar">
+            <span>9:41</span>
+            <div style="display:flex; gap:0.4rem; align-items:center;">
+                <span>5G</span>
+                <span>📶</span>
+                <span>🔋 98%</span>
+            </div>
+        </div>
+
+        <!-- HEADER DA APLICAÇÃO VIP -->
+        <header class="app-top-bar">
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+                <button onclick="toggleMobileDrawer()" style="background:none; border:none; color:#FFF; font-size:1.3rem; cursor:pointer;">☰</button>
+                <div class="user-pill">
+                    <div class="avatar-dot">L</div>
+                    <span style="font-size:0.75rem; font-weight:700;">Lucas338L</span>
+                </div>
+            </div>
+
+            <div class="balance-badge">
+                <span class="balance-text" id="phone-balance">R$ 1.480,50</span>
+                <button class="btn-pix-top" onclick="openPhoneSaque()">⚡ SACAR</button>
+            </div>
+        </header>
+
+        <!-- TELA DO SMARTPHONE -->
+        <main class="phone-screen">
+
+            <!-- PASSO 1: SELEÇÃO DE JOGO + LINK DO CASSINO -->
+            <div class="input-card" id="step-input-card">
+                <span class="app-badge">VACBRASIL IA v4.2 • CONECTAR CASSINO</span>
+                <h3 style="font-size:1.1rem; font-weight:800; margin:0.3rem 0;">Selecione o Jogo & Insira a Banca</h3>
+
+                <!-- LISTA COMPLETA DOS 24 JOGOS SOLICITADOS -->
+                <label class="input-label">🎮 Selecione o Jogo Desejado:</label>
+                <select id="game-select" class="mobile-select-input">
+                    <option value="Fortune Tiger" selected>🐯 Fortune Tiger</option>
+                    <option value="Fortune Dragon">🐉 Fortune Dragon</option>
+                    <option value="Fortune Gods">🧧 Fortune Gods</option>
+                    <option value="Fortune Horse">🐴 Fortune Horse</option>
+                    <option value="Fortune Mouse">🐭 Fortune Mouse</option>
+                    <option value="Fortune Ox">🐂 Fortune Ox</option>
+                    <option value="Fortune Rabbit">🐰 Fortune Rabbit</option>
+                    <option value="Fortune Snake">🐍 Fortune Snake</option>
+                    <option value="Cash Mania">💵 Cash Mania</option>
+                    <option value="Shaolin Soccer">⚽ Shaolin Soccer</option>
+                    <option value="Dragon Tiger">🐲 Dragon Tiger</option>
+                    <option value="Wild Ape #3258">🦍 Wild Ape #3258</option>
+                    <option value="Wild Bandito">💀 Wild Bandito</option>
+                    <option value="Wild Bounty Showdown">🤠 Wild Bounty Showdown</option>
+                    <option value="Wild Coaster">🎢 Wild Coaster</option>
+                    <option value="Wild Fireworks">🎆 Wild Fireworks</option>
+                    <option value="Wild Heist Cashout">💰 Wild Heist Cashout</option>
+                    <option value="Double Fortune">💍 Double Fortune</option>
+                    <option value="Prosperity Fortune Tree">🌳 Prosperity Fortune Tree</option>
+                    <option value="Prosperity Lion">🦁 Prosperity Lion</option>
+                    <option value="Tree of Fortune">🌲 Tree of Fortune</option>
+                    <option value="Ganesha Fortune">🐘 Ganesha Fortune</option>
+                    <option value="Ganesha Gold">🪙 Ganesha Gold</option>
+                    <option value="Candy Bonanza">🍬 Candy Bonanza</option>
+                </select>
+
+                <!-- LINK DO CASSINO -->
+                <label class="input-label">🔗 Link da Sua Banca / Cassino:</label>
+                <input type="text" id="mobile-url-input" class="mobile-url-input" value="https://demofortunetiger.com/#demo" placeholder="Digite o link do cassino aqui..." />
+
+                <button class="btn-launch" onclick="runMobileScanner()">🚀 ABRIR CASSINO & GERAR SINAL</button>
+            </div>
+
+            <!-- PASSO 2: SCANNER MATRIX HIGH-TECH -->
+            <div class="scanner-overlay" id="mobile-scanner-display">
+                <div class="radar-spinner"></div>
+                <h4 style="font-size:0.95rem; color:var(--brand-green); margin-bottom:0.4rem;" id="mobile-scan-title">🔌 Conectando ao Servidor EUA (Nevada Node #09)...</h4>
+                <p style="font-size:0.75rem; color:var(--text-muted);" id="mobile-scan-desc">Bypass em algoritmo de retenção do cassino...</p>
+            </div>
+
+            <!-- PASSO 3: SINAL GERADO COM SUCESSO -->
+            <div class="signal-card" id="mobile-signal-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+                    <strong style="color:var(--brand-green); font-size:0.85rem;" id="signal-game-title">🔔 SINAL DETECTADO: Fortune Tiger</strong>
+                    <span style="font-size:0.7rem; background:var(--brand-green); color:#000; font-weight:800; padding:0.1rem 0.4rem; border-radius:4px;">99.4% PRECISÃO</span>
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:0.4rem; text-align:center; font-size:0.75rem;">
+                    <div style="background:rgba(0,0,0,0.5); padding:0.4rem; border-radius:6px;">
+                        <span style="color:var(--text-muted); display:block; font-size:0.65rem;">NORMAIS</span>
+                        <strong style="color:var(--brand-green);">3X</strong>
+                    </div>
+                    <div style="background:rgba(0,0,0,0.5); padding:0.4rem; border-radius:6px;">
+                        <span style="color:var(--text-muted); display:block; font-size:0.65rem;">TURBO</span>
+                        <strong style="color:var(--accent-yellow);">5X</strong>
+                    </div>
+                    <div style="background:rgba(0,0,0,0.5); padding:0.4rem; border-radius:6px;">
+                        <span style="color:var(--text-muted); display:block; font-size:0.65rem;">VALIDADE</span>
+                        <strong style="color:#00E5FF;" id="mobile-signal-timer">03:00</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PASSO 4: CASSINO ACOPLADO COM HEADER PEDIDO ("Bet selecionada: Modo real ao vivo - [NOME DO JOGO]") -->
+            <div class="mobile-casino-frame" id="mobile-casino-frame">
+                <div class="casino-header">
+                    <div style="display:flex; align-items:center; gap:0.4rem;">
+                        <span class="status-dot pulsing"></span>
+                        <!-- TEXTO PEDIDO-->
+                        <strong style="color:#FFF;" id="casino-live-header">Bet selecionada: Modo real ao vivo - Fortune Tiger</strong>
+                    </div>
+                    <span style="font-size:0.65rem; color:var(--brand-green);">● CONECTADO</span>
+                </div>
+
+                <iframe 
+                    id="mobile-game-iframe" 
+                    src="https://demofortunetiger.com/#demo" 
+                    class="game-iframe" 
+                    title="Casino Live Game"
+                    allow="autoplay; fullscreen"
+                ></iframe>
+            </div>
+
+        </main>
+
+        <!-- DRAWER MENU -->
+        <div class="mobile-drawer" id="mobile-drawer">
+            <button class="drawer-close" onclick="toggleMobileDrawer()">✕</button>
+            <h3 style="color:var(--brand-green); font-size:1.2rem; margin-bottom:1.5rem;">VACBRASIL VIP MENU</h3>
+
+            <div class="drawer-item active" onclick="switchMobileSection('game')">
+                <span>🎰 Cassino & Gerador IA</span>
+                <span style="color:var(--brand-green)">● Ativo</span>
+            </div>
+            <div class="drawer-item" onclick="openPhoneSaque()">
+                <span style="color:var(--brand-green)">⚡ Sacar via PIX</span>
+                <span>➔</span>
+            </div>
+            <div class="drawer-item" onclick="switchMobileSection('promos')">
+                <span>🎁 Promoções & Bônus</span>
+                <span style="background:#EF4444; color:#FFF; font-size:0.65rem; padding:0.1rem 0.4rem; border-radius:4px;">BÔNUS</span>
+            </div>
+            <div class="drawer-item" onclick="switchMobileSection('history')">
+                <span>📜 Histórico de Saques</span>
+                <span>➔</span>
+            </div>
+            <div class="drawer-item" onclick="switchMobileSection('support')">
+                <span>💬 Suporte 24/7 (Ao Vivo)</span>
+                <span>➔</span>
+            </div>
+        </div>
+
+        <!-- MODAL DE SAQUE -->
+        <div class="phone-modal" id="phone-saque-modal">
+            <button class="drawer-close" onclick="closePhoneSaque()">✕</button>
+
+            <div id="phone-saque-form">
+                <h3 style="font-size:1.3rem; margin-bottom:0.4rem; color:#FFF;">💸 Saque via PIX Instantâneo</h3>
+                <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1.5rem;">Credito direto na conta de <strong>Lucas338L</strong></p>
+
+                <div style="margin-bottom:1rem;">
+                    <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.3rem;">Chave PIX:</label>
+                    <input type="text" id="phone-pix-key" class="mobile-url-input" value="123.456.789-00" style="margin:0;" />
+                </div>
+
+                <div style="margin-bottom:1.5rem;">
+                    <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:0.3rem;">Valor (R$):</label>
+                    <input type="number" id="phone-saque-val" class="mobile-url-input" value="500.00" style="margin:0;" />
+                    <small style="color:var(--brand-green); font-size:0.7rem; display:block; margin-top:0.3rem;">Saldo disponível: R$ 1.480,50</small>
+                </div>
+
+                <button class="btn-launch" onclick="executePhoneSaque()">CONFIRMAR SAQUE ⚡</button>
+            </div>
+
+            <!-- CARREGANDO & SUCESSO DE SAQUE -->
+            <div id="phone-saque-status" style="display:none; text-align:center; padding-top:3rem;">
+                <div id="phone-saque-loading">
+                    <div class="radar-spinner"></div>
+                    <h4 style="color:#FFF;">Processando transferência via PIX...</h4>
+                    <p style="font-size:0.8rem; color:var(--text-muted);">Validando transação com o Banco Central...</p>
+                </div>
+
+                <div id="phone-saque-success" style="display:none;">
+                    <div style="width:60px; height:60px; border:2px solid var(--brand-green); color:var(--brand-green); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2rem; margin:0 auto 1rem auto;">✓</div>
+                    <h3 style="color:var(--brand-green); margin-bottom:0.5rem;">SAQUE REALIZADO COM SUCESSO!</h3>
+                    <p id="phone-success-desc" style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem;"></p>
+
+                    <button class="btn-launch" onclick="closePhoneSaque()">CONCLUÍDO</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTTOM HOME BAR -->
+        <div class="phone-home-bar">
+            <div class="home-indicator"></div>
+        </div>
+    </div>
+
+    <!-- SCRIPT DA APLICAÇÃO MOBILE -->
+    <script>
+        let phoneBalance = 1480.50;
+
+        function toggleMobileDrawer() {
+            document.getElementById('mobile-drawer').classList.toggle('open');
+        }
+
+        // APITO SONORO
+        function playBeepSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1760, audioCtx.currentTime + 0.3);
+                gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.3);
+            } catch (e) {}
+        }
+
+        // FLUXO PRINCIPAL: SELEÇÃO DE JOGO + SCANNER + CASSINO ACOPLADO
+        function runMobileScanner() {
+            const selectedGame = document.getElementById('game-select').value;
+            const urlInput = document.getElementById('mobile-url-input').value;
+            const scannerDisplay = document.getElementById('mobile-scanner-display');
+            const scanTitle = document.getElementById('mobile-scan-title');
+            const scanDesc = document.getElementById('mobile-scan-desc');
+            const signalCard = document.getElementById('mobile-signal-card');
+            const signalGameTitle = document.getElementById('signal-game-title');
+            const casinoFrame = document.getElementById('mobile-casino-frame');
+            const casinoLiveHeader = document.getElementById('casino-live-header');
+
+            if (!urlInput) {
+                alert('Insira um link válido para a análise!');
+                return;
+            }
+
+            scannerDisplay.classList.add('active');
+
+            scanTitle.textContent = `🔌 Conectando ao Servidor EUA para o jogo ${selectedGame}...`;
+            scanDesc.textContent = `Bypass em algoritmo de retenção no ${selectedGame}...`;
+
+            setTimeout(() => {
+                scanTitle.textContent = `🔍 Mapeando probabilidade de ganho em ${selectedGame}...`;
+                scanDesc.textContent = `Identificando padrão de pagamento exato...`;
+            }, 1200);
+
+            setTimeout(() => {
+                scanTitle.textContent = `⚡ Falha confirmada! Sincronizando sinal do ${selectedGame}...`;
+                scanDesc.textContent = `Injetando ponte de dados na sessão de Lucas338L...`;
+            }, 2400);
+
+            setTimeout(() => {
+                scannerDisplay.classList.remove('active');
+                
+                // ATUALIZA TÍTULO DO SINAL
+                signalGameTitle.textContent = `🔔 SINAL DETECTADO: ${selectedGame}`;
+                signalCard.classList.add('active');
+                playBeepSound();
+
+                // ATUALIZA CABEÇALHO PEDIDO
+                casinoLiveHeader.textContent = `Bet selecionada: Modo real ao vivo - ${selectedGame}`;
+                casinoFrame.classList.add('active');
+                
+                const iframe = document.getElementById('mobile-game-iframe');
+                if (urlInput.startsWith('http')) {
+                    try { iframe.src = urlInput; } catch(e){}
+                }
+
+                startMobileTimer();
+            }, 3600);
+        }
+
+        function startMobileTimer() {
+            let timer = 180;
+            const timerEl = document.getElementById('mobile-signal-timer');
+            const interval = setInterval(() => {
+                const mins = Math.floor(timer / 60);
+                const secs = timer % 60;
+                timerEl.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+                if (--timer < 0) {
+                    clearInterval(interval);
+                    timerEl.textContent = '00:00';
+                }
+            }, 1000);
+        }
+
+        // SAQUE PIX NO CELULAR
+        function openPhoneSaque() {
+            document.getElementById('mobile-drawer').classList.remove('open');
+            document.getElementById('phone-saque-modal').classList.add('active');
+            document.getElementById('phone-saque-form').style.display = 'block';
+            document.getElementById('phone-saque-status').style.display = 'none';
+        }
+
+        function closePhoneSaque() {
+            document.getElementById('phone-saque-modal').classList.remove('active');
+        }
+
+        function executePhoneSaque() {
+            const val = parseFloat(document.getElementById('phone-saque-val').value) || 0;
+            const key = document.getElementById('phone-pix-key').value;
+
+            if (val <= 0 || val > phoneBalance || !key) {
+                alert('Verifique o valor e a chave PIX informada!');
+                return;
+            }
+
+            document.getElementById('phone-saque-form').style.display = 'none';
+            document.getElementById('phone-saque-status').style.display = 'block';
+            document.getElementById('phone-saque-loading').style.display = 'block';
+            document.getElementById('phone-saque-success').style.display = 'none';
+
+            setTimeout(() => {
+                document.getElementById('phone-saque-loading').style.display = 'none';
+                document.getElementById('phone-saque-success').style.display = 'block';
+
+                phoneBalance -= val;
+                document.getElementById('phone-balance').textContent = `R$ ${phoneBalance.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+
+                document.getElementById('phone-success-desc').textContent = `O valor de R$ ${val.toFixed(2)} foi creditado com sucesso na chave PIX (${key}).`;
+            }, 2200);
+        }
+
+        function switchMobileSection(sec) {
+            toggleMobileDrawer();
+            if (sec === 'promos') {
+                alert('🎁 Bônus VIP de R$ 500,00 Ativo na conta Lucas338L!');
+            } else if (sec === 'history') {
+                alert('📜 Último saque: R$ 500,00 via PIX (Concluído & Aprovado)');
+            } else if (sec === 'support') {
+                alert('💬 Suporte Ao Vivo 24/7: Atendente Gabriel online para Lucas338L');
+            }
+        }
+    </script>
+</body>
+</html>

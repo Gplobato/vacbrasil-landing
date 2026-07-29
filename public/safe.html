@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VacBrasil.org – Portal de Análise de Dados e Estatística</title>
+    <meta name="description" content="Portal educativo e institucional dedicado à análise estatística de dados, padrões numéricos e ciência de dados no Brasil." />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0F172A;
+            --accent: #2563EB;
+            --text: #334155;
+            --bg: #F8FAFC;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
+        header { background: #FFF; border-bottom: 1px solid #E2E8F0; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.25rem; font-weight: 800; color: var(--primary); text-decoration: none; }
+        .logo span { color: var(--accent); }
+        nav a { margin-left: 1.5rem; text-decoration: none; color: #64748B; font-size: 0.9rem; font-weight: 600; }
+        .hero-safe { max-width: 900px; margin: 4rem auto; padding: 0 1.5rem; text-align: center; }
+        .hero-safe h1 { font-size: 2.2rem; color: var(--primary); font-weight: 800; margin-bottom: 1rem; }
+        .hero-safe p { font-size: 1.1rem; color: #475569; margin-bottom: 2rem; }
+        .grid-features { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; padding: 0 1.5rem 4rem 1.5rem; }
+        .card-feature { background: #FFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 1.8rem; text-align: left; }
+        .card-feature h3 { font-size: 1.1rem; color: var(--primary); margin-bottom: 0.5rem; }
+        footer { background: #FFF; border-top: 1px solid #E2E8F0; text-align: center; padding: 2rem 1rem; font-size: 0.85rem; color: #94A3B8; }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/" class="logo">VACBRASIL <span>.ORG</span></a>
+        <nav>
+            <a href="#sobre">Sobre Nós</a>
+            <a href="#artigos">Pesquisas</a>
+            <a href="#contato">Contato Institucional</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-safe">
+            <h1>Pesquisa e Análise Estatística de Algoritmos Computacionais</h1>
+            <p>O portal VacBrasil.org é uma iniciativa acadêmica e institucional focada no estudo de séries temporais, probabilidade e modelos de dados aplicados.</p>
+        </section>
+
+        <section class="grid-features" id="sobre">
+            <div class="card-feature">
+                <h3>📊 Análise Numérica</h3>
+                <p>Estudo detalhado de distribuição de frequências e comportamento de algoritmos de geração aleatória de dados (RNG).</p>
+            </div>
+            <div class="card-feature">
+                <h3>🔍 Transparência de Dados</h3>
+                <p>Metodologias abertas para auditoria estatística e verificação empírica de padrões computacionais.</p>
+            </div>
+            <div class="card-feature">
+                <h3>🎓 Conteúdo Educativo</h3>
+                <p>Material didático voltado para estudantes e pesquisadores das áreas de ciência de dados e engenharia de software.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contato">
+        <p>© 2026 VacBrasil.org – Portal de Pesquisa e Análise de Dados. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
